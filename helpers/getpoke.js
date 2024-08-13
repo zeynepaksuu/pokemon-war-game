@@ -12,7 +12,11 @@ async function get_poke(){
             var rand = Math.floor(Math.random()*1024 + 1); //rastgele poke cekmek için sayı üretiyor
             var pr = await axios.get('https://pokeapi.co/api/v2/pokemon/'+ rand) //returns promise;  
             console.log(pr.data);
-            result[i]= pr.data;
+            var obj ={
+                sprite: pr.data.sprites.other.home.front_default,
+                name: pr.data.name,
+            };
+            result[i]= obj;
         }
         return result;
     }
