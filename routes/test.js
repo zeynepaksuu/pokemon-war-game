@@ -1,17 +1,17 @@
 var express = require('express');
 var router = express.Router();
-var get_poke = require('../helpers/getpoke');
+var get_poke = require('../helpers/getpoke'); //getpoke fonksiyonu için path
 
 /* GET home page. */
 router.get('/test', async function(req, res) {
  
 try{
-    let result = await get_poke();  //helpteki returnü bekler
+    let result = await get_poke();  //getpoke fonksiyonunun sonucunu bekler
    // console.log(result.length);
-    res.send(result);
+    res.json(result);
 }
 catch(err) {
-    res.send(err);
+    res.status(500).send("pokemon verileri getirilirken hata"); 
 }
 
 });
