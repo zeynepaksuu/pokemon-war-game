@@ -20,12 +20,15 @@
             console.log('Sunucudan ayrıldı');
         });
 
-        socket.on('message', function(data) {
-            console.log('Sunucudan gelen mesaj:', data);
+        socket.emit('get_pokemon', function() {
+            console.log('Sunucuya get_pokemon atıldı');
+        });
+        socket.on('get_pokemon', function(data) {
+            console.log('Sunucudan mesaj', data);
+            displayPokemons(data);
         });
 
-        // Sunucuya mesaj gönder
-        socket.emit('message', 'Merhaba Sunucu!');
+      
     </script>
     
 <div class="container-fluid">

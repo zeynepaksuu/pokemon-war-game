@@ -6,6 +6,8 @@ var logger = require('morgan');
 var http = require('http');
 var { Server } = require('socket.io');  // Socket.IO'yu ekleyin
 
+const get_poke = require('./helpers/getPoke'); //içe aktardık cunku get pokeyi burda kullanıcaz
+
 var mainRoute = require('./routes/main');
 var enterenceRoute = require('./routes/enterence');
 var scoreboardRoute = require('./routes/scoreboard');
@@ -42,20 +44,13 @@ app.use('/', testRoute);
 io.on('connection', (socket) => {
   console.log('New WebSocket connection established');
 
-  // Send a welcome message to the client
-  socket.emit('message', 'Hello, Socket.IO server is running on port 3000!');
-
-  // Handle messages received from the client
-  socket.on('message', (message) => {
-    console.log('Received:', message);
-    // Echo the message back to the client
-    socket.emit('message', `Server received: ${message}`);
-  });
-
-  // Handle connection close
-  socket.on('disconnect', () => {
-    console.log('WebSocket connection closed');
-  });
+    // Handle messages received from the client
+    socket.on('get_pokemon', async (message) => {
+      console.log('Received:', message);
+      // Echo the message back to the client  
+      const pokemons = await get_poke();
+      socket.emit('get_pokemon', pokemons);
+    });
 });
 
 
