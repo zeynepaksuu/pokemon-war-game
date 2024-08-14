@@ -15,6 +15,16 @@ function displayPokemons(pokemons) {
           if (nameElement) {
               nameElement.textContent = pokemon.name || 'pokemon';
           }
+
+          const powerElement = document.getElementById(`power${index + 1}`);
+          if (powerElement) {
+              powerElement.textContent = pokemon.attack || 'attack';
+          }
+
+          const abilityElement = document.getElementById(`ability${index + 1}`);
+          if (abilityElement) {
+            abilityElement.textContent = pokemon.special_attack || 'special-attack';
+          }
       }
   });
 }
