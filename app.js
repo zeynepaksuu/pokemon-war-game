@@ -51,6 +51,7 @@ io.on('connection', (socket) => {
       const pokemons = await get_poke();
       socket.emit('get_pokemon', pokemons);
     });
+  
 });
 
 

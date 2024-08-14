@@ -1,23 +1,25 @@
+// Pokémon verilerini gösterme fonksiyonu
+function displayPokemons(pokemons) {
+  // pokemonData, 6 Pokémon nesnesinden oluşan bir dizi olmalı
+  pokemons.forEach((pokemon, index) => {
+      if (index < 6) { //  6 Pokémon'u güncelle
+          // Pokémon'un resim URL'sini güncelle
+          const imgSrc = pokemon.sprite;
+          const imgElement = document.getElementById(`pokemon${index + 1}`);
+          if (imgElement) {
+              imgElement.src = imgSrc;
+          }
 
-function displayPokemons(pokemons){
-  
-
-  if(pokemons && Array.isArray(pokemons)){
-    pokemons.forEach((pokemon,index) => {
-      const imgSrc = pokemon.sprite;
-      const imgElement = document.getElementById(`pokemon${index + 1}`);
-
-      if(imgElement){
-        imgElement.src =imgSrc; //resim urlsini atar
-
-       //document.getElementById(`ability${index + 1}`).textContent = `ability: ${pokemon.abilities[0]?.ability.name || 'Unknown'}`;
-        //document.getElementById(`power${index + 1}`).textContent = `power: ${pokemon.stats[1]?.base_stat || 'Unknown'}`;
-        //document.getElementById(`heal${index + 1}`).textContent = `heal: ${pokemon.stats[0]?.base_stat || 'Unknown'}`;
-    
+          // Pokémon'un ismini güncelle
+          const nameElement = document.getElementById(`isim${index + 1}`);
+          if (nameElement) {
+              nameElement.textContent = pokemon.name || 'pokemon';
+          }
       }
-    })
-  }
+  });
 }
+
+     
 
 
 
