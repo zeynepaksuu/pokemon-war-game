@@ -6,6 +6,7 @@ var logger = require('morgan');
 var http = require('http');
 var { Server } = require('socket.io');  // Socket.IO'yu ekleyin
 
+
 const get_poke = require('./helpers/getPoke'); //içe aktardık cunku get pokeyi burda kullanıcaz
 
 var mainRoute = require('./routes/main');
@@ -15,10 +16,10 @@ var testRoute = require('./routes/test');
 
 var app = express();
 
-// Create a separate HTTP server for Socket.IO
+// socket.io icin http server
 const wsServer = http.createServer();
 
-// Socket.IO sunucusu oluşturun ve 8080 portunda dinlesin
+// Socket.IO sunucusu oluşturuldu ve 8080 portunda dinlenecek
 var io = new Server(wsServer, {
   cors: {
     origin: "*",  
@@ -35,6 +36,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+var mainRoute = require('./routes/main');
+var enterenceRoute = require('./routes/enterence');
+var scoreboardRoute = require('./routes/scoreboard');
+var testRoute = require('./routes/test');
+var dataRoute = require('./routes/data');
+
+app.use('/', dataRoute);
 app.use('/', mainRoute);
 app.use('/', enterenceRoute);
 app.use('/', scoreboardRoute);
@@ -70,6 +78,8 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
 
 wsServer.listen(8080, () => {
   console.log('ws server is listening on port 8080');
