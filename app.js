@@ -9,11 +9,6 @@ var { Server } = require('socket.io');  // Socket.IO'yu ekleyin
 
 const get_poke = require('./helpers/getPoke'); //içe aktardık cunku get pokeyi burda kullanıcaz
 
-var mainRoute = require('./routes/main');
-var enterenceRoute = require('./routes/enterence');
-var scoreboardRoute = require('./routes/scoreboard');
-var testRoute = require('./routes/test');
-
 var app = express();
 
 // socket.io icin http server
@@ -41,12 +36,16 @@ var enterenceRoute = require('./routes/enterence');
 var scoreboardRoute = require('./routes/scoreboard');
 var testRoute = require('./routes/test');
 var dataRoute = require('./routes/data');
+var waitingRoute = require('./routes/waiting');
+
 
 app.use('/', dataRoute);
 app.use('/', mainRoute);
 app.use('/', enterenceRoute);
 app.use('/', scoreboardRoute);
 app.use('/', testRoute);
+app.use('/', waitingRoute);
+
 
 // Handle WebSocket connections on Socket.IO
 io.on('connection', (socket) => {
