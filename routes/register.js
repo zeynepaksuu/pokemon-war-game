@@ -3,8 +3,8 @@ var router = express.Router();
 
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('enterence', { callRegister: false });
+router.post('/register', function(req, res, next) {
+  res.render('enterence', { callRegister:true });
 });
 
 module.exports = router;

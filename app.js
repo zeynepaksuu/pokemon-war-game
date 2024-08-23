@@ -2,15 +2,36 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
+var session = require('express-session'); //express sessionı ekliyoruz
 var logger = require('morgan');
 var http = require('http');
 var { Server } = require('socket.io');  // Socket.IO'yu ekleyin
-
-
+//var middleware = require('./session.js');  //session.js dosyasında middleware var onu import ettik
+var db = require('./database') //database.jsin yolunu verdik
 const get_poke = require('./helpers/getPoke'); //içe aktardık cunku get pokeyi burda kullanıcaz
+var router = express.Router();
 
 var app = express();
 
+app.use((req, res, next) => {
+  console.log (req.method);
+  // / /login /register pathlerini istisna tutmalıyız
+  if ((req.path === '/' && req.method === 'GET') || (req.path === '/login' && req.method === 'POST') || (req.path === '/register' && req.method === 'POST')) {
+    // bu yollar için middlewareı atlamalıyız
+    next();
+    //return res.end("/ GET istendi");
+  } else {
+  //if (session.open) next(), 
+  //else not session open res.redirect login / - cookie okutulcak , değerini session tablosunda bakcaz, aynıysa oturum açılmış, farklıysa acılmamıs
+  //diğer tüm routelarda bu çalışcak
+  console.log('Time:', Date.now());
+  next();
+}
+  
+});
+
+
+ 
 // socket.io icin http server
 const wsServer = http.createServer();
 
@@ -37,6 +58,8 @@ var scoreboardRoute = require('./routes/scoreboard');
 var testRoute = require('./routes/test');
 var dataRoute = require('./routes/data');
 var waitingRoute = require('./routes/waiting');
+var loginRoute = require('./routes/login');
+var registerRoute = require('./routes/register');
 
 
 app.use('/', dataRoute);
@@ -45,6 +68,9 @@ app.use('/', enterenceRoute);
 app.use('/', scoreboardRoute);
 app.use('/', testRoute);
 app.use('/', waitingRoute);
+app.use('/', loginRoute);
+app.use('/', registerRoute);
+
 
 
 // Handle WebSocket connections on Socket.IO

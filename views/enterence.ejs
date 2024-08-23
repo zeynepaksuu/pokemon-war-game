@@ -14,13 +14,13 @@
                 <button type="button" class="toggle-btn" onclick="login()">Login</button>
                 <button type="button" class="toggle-btn" onclick="register()">Register</button>
             </div>
-            <form id="Login" class="input-group">
+            <form id="Login" action="/login" method="post" class="input-group">
                 <input type="text" class="input-field" placeholder="Enter Email" required>
                 <input type="password" class="input-field" placeholder="Enter Password" required>
                 <a href="#">Lost your Password</a>
                 <button type="submit" class="submit-btn">Login</button>
             </form>
-            <form id="Register" class="input-group">
+            <form id="Register" action="/register" method="post" class="input-group">
                 <input type="text" class="input-field" placeholder="Enter Email" required>
                 <input type="username" class="input-field" placeholder="Enter Username" required>
                 <input type="password" class="input-field" placeholder="Enter Password" required>
@@ -45,8 +45,14 @@
             z.style.left = "450px";
             y.style.left = "0px";
         }
+
+        <% if (callRegister) { %>
+            register();
+            <% } %>
     </script>
+   
       
+   
 <!--bootstrap-->
 <script src="https://cdn.jsdelivr.net/np
 /@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
